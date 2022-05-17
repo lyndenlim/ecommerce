@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react';
 
 interface Product {
   id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
   image: string;
+  title: string;
+  category: string;
+  description: string;
+  price: number;
 }
 
 const App: React.FC = () => {
@@ -20,15 +20,25 @@ const App: React.FC = () => {
         .then((response: AxiosResponse) => {
           setProducts(response.data)
         })
-
     }
 
     getProductData()
   }, [])
 
   return (
-    <div className="App">
-      {products.map(product => <div key={product.id}>{product.title}</div>)}
+    <div className="item-container">
+      {products.map(product =>
+        <div key={product.id}>
+          <div className="item-image-container">
+            <img className="item-image" src={product.image} alt={product.title} />
+          </div>
+          <div>
+            <p>{product.title}</p>
+            <p>{product.category}</p>
+            <p>{product.description}</p>
+            <p>${product.price.toFixed(2)}</p>
+          </div>
+        </div>)}
     </div>
   );
 }
