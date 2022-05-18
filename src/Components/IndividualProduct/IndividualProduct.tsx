@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios"
+import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Product } from "../../model"
@@ -9,16 +9,13 @@ const IndividualProduct: React.FC = () => {
     const [product, setProduct] = useState<Product>()
 
     useEffect(() => {
-        async function getProductInfo() {
-            axios.get(`https://fakestoreapi.com/products/${id}`)
-                .then((data: AxiosResponse) => {
-                    setProduct(data.data)
-                })
-        }
-
         getProductInfo()
     }, [])
 
+    async function getProductInfo(): Promise<void> {
+        const data = await axios.get(`https://fakestoreapi.com/products/${id}`)
+        setProduct(data.data)
+    }
 
     return (
         product ?

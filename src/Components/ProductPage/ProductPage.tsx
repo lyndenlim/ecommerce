@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios"
+import axios from "axios"
 import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom"
 import "./ProductPage.css"
@@ -8,15 +8,13 @@ const ProductPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([])
 
   useEffect(() => {
-    async function getAllProductData() {
-      axios.get("https://fakestoreapi.com/products")
-        .then((response: AxiosResponse) => {
-          setProducts(response.data)
-        })
-    }
-
     getAllProductData()
   }, [])
+
+  async function getAllProductData(): Promise<void> {
+    const data = await axios.get("https://fakestoreapi.com/products")
+    setProducts(data.data)
+  }
 
   return (
     <div className="item-container">
