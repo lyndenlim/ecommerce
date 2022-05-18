@@ -1,0 +1,7 @@
+.individual-item-container {
+    width: 80vw;
+}
+
+.single-item-image {
+    object-fit: contain;
+}
